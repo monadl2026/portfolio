@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Montserrat Alonso de León — Marketing Strategist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f0eb;
+    --cream: #e8e0d5;
+    --accent: #c8a86b;
+    --accent2: #d44a2a;
+    --gray: #8a8478;
+    --mid: #2a2820;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+    mix-blend-mode: difference;
+  }
+  .cursor-follower {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.18s ease, width 0.2s, height 0.2s;
+    opacity: 0.6;
+  }
+  body:hover .cursor { opacity: 1; }
+
+  /* Nav */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 60px;
+    mix-blend-mode: difference;
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.15em;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 300;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+  }
+  .nav-links a:hover { opacity: 1; }
+
+  /* Hero */
+  #hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 60px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 60% 80% at 80% 20%, rgba(200,168,107,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 20% 80%, rgba(212,74,42,0.06) 0%, transparent 50%);
+  }
+
+  .hero-noise {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .hero-line {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(200,168,107,0.15), transparent);
+  }
+
+  .hero-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 1s 0.3s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 12vw, 14rem);
+    line-height: 0.88;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    opacity: 0;
+    animation: fadeUp 1s 0.5s forwards;
+  }
+
+  .hero-title .italic-line {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--cream);
+    display: block;
+  }
+
+  .hero-sub {
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    opacity: 0;
+    animation: fadeUp 1s 0.8s forwards;
+  }
+
+  .hero-desc {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--gray);
+    max-width: 320px;
+    line-height: 1.7;
+  }
+
+  .hero-scroll {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray);
+    position: absolute;
+    right: 60px;
+    bottom: 80px;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    animation: scrollPulse 2s infinite;
+  }
+
+  /* Sections */
+  section { padding: 120px 60px; position: relative; }
+
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 6vw, 6rem);
+    line-height: 1;
+    letter-spacing: 0.02em;
+  }
+
+  /* About */
+  #about {
+    background: var(--mid);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .about-left .section-title { margin-bottom: 32px; }
+
+  .about-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--cream);
+  }
+
+  .about-text strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .about-right {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .stat-row {
+    display: flex;
+    gap: 40px;
+  }
+
+  .stat {
+    flex: 1;
+    border-top: 1px solid rgba(200,168,107,0.25);
+    padding-top: 20px;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  /* Work / Campaigns */
+  #work { background: var(--black); }
+
+  .work-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 80px;
+  }
+
+  .work-intro {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--gray);
+    max-width: 280px;
+    line-height: 1.8;
+    text-align: right;
+  }
+
+  .campaign-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .campaign-card {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    background: var(--mid);
+    cursor: none;
+  }
+
+  .campaign-card.large {
+    grid-column: span 2;
+    aspect-ratio: 16/9;
+  }
+
+  .card-bg {
+    position: absolute;
+    inset: 0;
+    transition: transform 0.6s ease;
+  }
+
+  .campaign-card:hover .card-bg { transform: scale(1.06); }
+
+  /* Each card gets a unique gradient */
+  .card-f1 .card-bg { background: linear-gradient(135deg, #1a0a00 0%, #3d1a00 40%, #7a3010 70%, #c8a86b 100%); }
+  .card-nfl .card-bg { background: linear-gradient(135deg, #001a3d 0%, #003080 40%, #0050c8 70%, #4a90e2 100%); }
+  .card-lenovo .card-bg { background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 40%, #16213e 70%, #0f3460 100%); }
+  .card-laliga .card-bg { background: linear-gradient(135deg, #1a0000 0%, #5a0000 40%, #a30000 70%, #ff6b35 100%); }
+  .card-bmw .card-bg { background: linear-gradient(135deg, #000d1a 0%, #001a33 40%, #003366 70%, #4169e1 100%); }
+  .card-takeover .card-bg { background: linear-gradient(135deg, #0d0d0d 0%, #1a1a00 40%, #3d3d00 70%, #888800 100%); }
+
+  .card-pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.07;
+  }
+
+  .card-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 32px;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+  }
+
+  .card-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    line-height: 1;
+    letter-spacing: 0.03em;
+    margin-bottom: 12px;
+  }
+
+  .card-metric {
+    font-size: 0.75rem;
+    color: rgba(245,240,235,0.6);
+    line-height: 1.6;
+    max-width: 340px;
+  }
+
+  .card-metric span {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .card-hover-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(200,168,107,0.08);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .campaign-card:hover .card-hover-overlay { opacity: 1; }
+
+  /* Geometric decoration on cards */
+  .card-geo {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(200,168,107,0.3);
+    transform: rotate(45deg);
+    transition: transform 0.4s;
+  }
+  .campaign-card:hover .card-geo { transform: rotate(90deg); }
+
+  /* Skills */
+  #expertise {
+    background: #111109;
+  }
+
+  .expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    margin-top: 80px;
+    border: 1px solid rgba(200,168,107,0.1);
+  }
+
+  .expertise-cell {
+    padding: 48px 32px;
+    border-right: 1px solid rgba(200,168,107,0.1);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s;
+  }
+
+  .expertise-cell:hover { background: rgba(200,168,107,0.04); }
+
+  .expertise-cell::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+  .expertise-cell:hover::before { transform: scaleX(1); }
+
+  .expertise-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    color: rgba(200,168,107,0.2);
+    line-height: 1;
+    margin-bottom: 24px;
+  }
+
+  .expertise-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+  }
+
+  .expertise-desc {
+    font-size: 0.78rem;
+    font-weight: 300;
+    color: var(--gray);
+    line-height: 1.75;
+  }
+
+  /* Experience timeline */
+  #experience { background: var(--mid); }
+
+  .exp-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 80px;
+    margin-top: 80px;
+  }
+
+  .exp-sidebar {
+    position: sticky;
+    top: 100px;
+    align-self: start;
+  }
+
+  .exp-nav-item {
+    display: block;
+    padding: 16px 0;
+    border-top: 1px solid rgba(200,168,107,0.15);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray);
+    cursor: none;
+    transition: color 0.3s;
+  }
+
+  .exp-nav-item.active, .exp-nav-item:hover { color: var(--accent); }
+
+  .exp-entries { display: flex; flex-direction: column; gap: 64px; }
+
+  .exp-entry {
+    border-left: 1px solid rgba(200,168,107,0.2);
+    padding-left: 40px;
+    position: relative;
+  }
+
+  .exp-entry::before {
+    content: '';
+    position: absolute;
+    left: -5px; top: 8px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .exp-company {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.05em;
+    line-height: 1;
+  }
+
+  .exp-meta {
+    display: flex;
+    gap: 24px;
+    margin: 8px 0 20px;
+  }
+
+  .exp-role {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--accent);
+  }
+
+  .exp-period {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--gray);
+    align-self: center;
+  }
+
+  .exp-bullets { list-style: none; }
+
+  .exp-bullets li {
+    font-size: 0.82rem;
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1.8;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(200,168,107,0.07);
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .exp-bullets li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.7rem;
+  }
+
+  /* Awards marquee */
+  .marquee-section {
+    background: var(--accent);
+    padding: 20px 0;
+    overflow: hidden;
+  }
+
+  .marquee-track {
+    display: flex;
+    animation: marquee 20s linear infinite;
+    white-space: nowrap;
+  }
+
+  .marquee-item {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    color: var(--black);
+    padding: 0 48px;
+    display: flex;
+    align-items: center;
+    gap: 48px;
+  }
+
+  .marquee-dot {
+    width: 4px; height: 4px;
+    background: var(--black);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* Contact */
+  #contact {
+    background: var(--black);
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+  }
+
+  .contact-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 8vw, 9rem);
+    line-height: 0.9;
+  }
+
+  .contact-big .accent { color: var(--accent); }
+
+  .contact-right {}
+
+  .contact-info { margin-top: 48px; }
+
+  .contact-row {
+    display: flex;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(200,168,107,0.15);
+    gap: 20px;
+  }
+
+  .contact-type {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray);
+    width: 60px;
+    flex-shrink: 0;
+  }
+
+  .contact-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: var(--cream);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .contact-value:hover { color: var(--accent); }
+
+  .edu-block { margin-top: 48px; }
+
+  .edu-item { padding: 16px 0; border-bottom: 1px solid rgba(200,168,107,0.1); }
+
+  .edu-school {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+  }
+
+  .edu-degree {
+    font-size: 0.75rem;
+    color: var(--gray);
+    margin-top: 4px;
+    font-weight: 300;
+  }
+
+  .edu-year { color: var(--accent); font-size: 0.7rem; }
+
+  /* Footer */
+  footer {
+    padding: 32px 60px;
+    border-top: 1px solid rgba(200,168,107,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-name {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.1em;
+    font-size: 0.9rem;
+    color: var(--gray);
+  }
+
+  .footer-links { display: flex; gap: 32px; }
+  .footer-links a {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--accent); }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.2); }
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* Reveal on scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* Horizontal decorative text */
+  .side-text {
+    position: absolute;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    color: rgba(200,168,107,0.15);
+    writing-mode: vertical-rl;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%) rotate(180deg);
+  }
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="cursor-follower"></div>
+
+<!-- Nav -->
+<nav>
+  <a href="#hero" class="nav-logo">MAL</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-noise"></div>
+  <div class="hero-line"></div>
+
+  <div class="hero-label">Marketing Strategist · Cornell MBA 2026</div>
+  <h1 class="hero-title">
+    MONTSE<br>
+    <span class="italic-line">Alonso</span>
+    DE LEÓN
+  </h1>
+
+  <div class="hero-sub">
+    <p class="hero-desc">Brand strategist specializing in sports sponsorships, LATAM market expansion, and high-impact Go-To-Market campaigns.</p>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    SCROLL
+  </div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <div class="about-left reveal">
+    <div class="section-label">About</div>
+    <h2 class="section-title">WHERE<br>STRATEGY<br>MEETS<br>CULTURE</h2>
+  </div>
+
+  <div class="about-right">
+    <p class="about-text reveal reveal-delay-1">
+      I turn market insights into <strong>measurable growth</strong>. From activating 200+ creators across Formula 1 and the NFL, to launching BMW into LATAM markets — I build campaigns that move numbers and shift brand perception.
+    </p>
+    <p class="about-text reveal reveal-delay-2">
+      Currently an MBA candidate at <strong>Cornell Johnson</strong>, focused on marketing analytics and digital transformation. Former Lenovo marketing specialist with <strong>$50M+ in managed partnerships</strong>.
+    </p>
+
+    <div class="stat-row reveal reveal-delay-3">
+      <div class="stat">
+        <div class="stat-num">50M+</div>
+        <div class="stat-label">Consumers reached via creator campaigns</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">150%</div>
+        <div class="stat-label">Brand awareness lift, F1 campaign</div>
+      </div>
+    </div>
+
+    <div class="stat-row reveal reveal-delay-4">
+      <div class="stat">
+        <div class="stat-num">$50M+</div>
+        <div class="stat-label">Joint Business Plan secured with CEO approval</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">300%</div>
+        <div class="stat-label">Premium sales increase, Takeover campaign</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="side-text">BRAND · STRATEGY · GROWTH</div>
+</section>
+
+<!-- Awards Marquee -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <div class="marquee-item">Marketing Case Competition 2025 Winner <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Battle of the Brands 2024 Winner <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Strategy Case Competition Runner-Up <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Forté Fellow · Cornell Johnson <span class="marquee-dot"></span></div>
+    <div class="marquee-item">L'Oréal Brandstorm Mexico Finalist <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Keynote Speaker · SMARTFILMS (500+ Attendees) <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Marketing Case Competition 2025 Winner <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Battle of the Brands 2024 Winner <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Strategy Case Competition Runner-Up <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Forté Fellow · Cornell Johnson <span class="marquee-dot"></span></div>
+    <div class="marquee-item">L'Oréal Brandstorm Mexico Finalist <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Keynote Speaker · SMARTFILMS (500+ Attendees) <span class="marquee-dot"></span></div>
+  </div>
+</div>
+
+<!-- Work -->
+<section id="work">
+  <div class="work-header">
+    <div>
+      <div class="section-label reveal">Selected Work</div>
+      <h2 class="section-title reveal reveal-delay-1">CAMPAIGNS<br>& IMPACT</h2>
+    </div>
+    <p class="work-intro reveal reveal-delay-2">High-performance campaigns across sports, tech, retail, and experiential — spanning LATAM, the US, and global audiences.</p>
+  </div>
+
+  <div class="campaign-grid">
+
+    <!-- F1 – Large -->
+    <div class="campaign-card large card-f1 reveal">
+      <div class="card-bg"></div>
+      <svg class="card-pattern" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="350" cy="50" r="200" fill="none" stroke="white" stroke-width="60" opacity="0.3"/>
+        <circle cx="350" cy="50" r="120" fill="none" stroke="white" stroke-width="30" opacity="0.2"/>
+      </svg>
+      <div class="card-hover-overlay"></div>
+      <div class="card-geo"></div>
+      <div class="card-content">
+        <div class="card-tag">Lenovo × Formula 1</div>
+        <div class="card-title">Formula 1 National Sponsorship</div>
+        <div class="card-metric">Race-weekend activations, team co-branding, premium SKU tie-ins · <span>+150% brand visibility</span> · High-value consumer engagement in premium segment</div>
+      </div>
+    </div>
+
+    <!-- NFL -->
+    <div class="campaign-card card-nfl reveal reveal-delay-1">
+      <div class="card-bg"></div>
+      <svg class="card-pattern" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="150,20 280,380 20,380" fill="none" stroke="white" stroke-width="40" opacity="0.2"/>
+      </svg>
+      <div class="card-hover-overlay"></div>
+      <div class="card-geo"></div>
+      <div class="card-content">
+        <div class="card-tag">Lenovo × NFL</div>
+        <div class="card-title">NFL Mexico City Game</div>
+        <div class="card-metric">In-stadium promos, creator partnerships, retail amplification · <span>+20% sell-through</span> · International sports audience expansion</div>
+      </div>
+    </div>
+
+    <!-- Takeover – Large -->
+    <div class="campaign-card large card-takeover reveal">
+      <div class="card-bg"></div>
+      <svg class="card-pattern" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+        <rect x="50" y="50" width="300" height="200" fill="none" stroke="white" stroke-width="40" opacity="0.15"/>
+        <rect x="100" y="80" width="200" height="140" fill="none" stroke="white" stroke-width="20" opacity="0.1"/>
+      </svg>
+      <div class="card-hover-overlay"></div>
+      <div class="card-geo"></div>
+      <div class="card-content">
+        <div class="card-tag">Lenovo — Flagship Campaign</div>
+        <div class="card-title">$4.5M Takeover Campaign</div>
+        <div class="card-metric">10-person cross-functional team · Digital, retail, experiential · <span>2× revenue</span> · <span>+300% premium in-store sales</span></div>
+      </div>
+    </div>
+
+    <!-- LaLiga -->
+    <div class="campaign-card card-laliga reveal reveal-delay-1">
+      <div class="card-bg"></div>
+      <svg class="card-pattern" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="150" cy="200" r="150" fill="none" stroke="white" stroke-width="50" opacity="0.2"/>
+        <line x1="0" y1="200" x2="300" y2="200" stroke="white" stroke-width="15" opacity="0.1"/>
+      </svg>
+      <div class="card-hover-overlay"></div>
+      <div class="card-geo"></div>
+      <div class="card-content">
+        <div class="card-tag">Lenovo × LaLiga — 2 Years</div>
+        <div class="card-title">LaLiga Sponsorship & El Clásico</div>
+        <div class="card-metric">5,000+ watch party · Merchandise programs · <span>+35% engagement</span> · <span>+22% sell-through</span></div>
+      </div>
+    </div>
+
+    <!-- BMW LATAM -->
+    <div class="campaign-card card-bmw reveal reveal-delay-2">
+      <div class="card-bg"></div>
+      <svg class="card-pattern" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="150" cy="150" r="100" fill="none" stroke="white" stroke-width="30" opacity="0.2"/>
+        <circle cx="150" cy="150" r="60" fill="none" stroke="white" stroke-width="15" opacity="0.15"/>
+      </svg>
+      <div class="card-hover-overlay"></div>
+      <div class="card-geo"></div>
+      <div class="card-content">
+        <div class="card-tag">Blair Image Elements × BMW</div>
+        <div class="card-title">BMW LATAM Market Launch</div>
+        <div class="card-metric">Dealer outreach → engineering approval · <span>$1M+ in new B2B contracts</span> · 90-day market entry · LATAM & Puerto Rico</div>
+      </div>
+    </div>
+
+    <!-- Creator Network -->
+    <div class="campaign-card card-lenovo reveal reveal-delay-3">
+      <div class="card-bg"></div>
+      <svg class="card-pattern" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0" y1="0" x2="300" y2="400" stroke="white" stroke-width="20" opacity="0.1"/>
+        <line x1="300" y1="0" x2="0" y2="400" stroke="white" stroke-width="20" opacity="0.1"/>
+      </svg>
+      <div class="card-hover-overlay"></div>
+      <div class="card-geo"></div>
+      <div class="card-content">
+        <div class="card-tag">Creator Ecosystem</div>
+        <div class="card-title">200+ Creators, 50M Reach</div>
+        <div class="card-metric">YouTube, Instagram, TikTok · Athletes & influencers · Sports & lifestyle content · <span>+150% brand engagement</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Expertise -->
+<section id="expertise">
+  <div class="section-label reveal">Core Skills</div>
+  <h2 class="section-title reveal reveal-delay-1">EXPERTISE</h2>
+
+  <div class="expertise-grid">
+    <div class="expertise-cell reveal">
+      <div class="expertise-num">01</div>
+      <div class="expertise-name">Go-To-Market Strategy</div>
+      <div class="expertise-desc">End-to-end GTM planning for retail, media, and B2B partners. Market segmentation, competitive positioning, and launch execution across LATAM and US markets.</div>
+    </div>
+    <div class="expertise-cell reveal reveal-delay-1">
+      <div class="expertise-num">02</div>
+      <div class="expertise-name">Sports & Sponsorship Marketing</div>
+      <div class="expertise-desc">Formula 1, NFL, and LaLiga partnerships. Race-weekend activations, co-branding, experiential events, and athlete/creator integrations at scale.</div>
+    </div>
+    <div class="expertise-cell reveal reveal-delay-2">
+      <div class="expertise-num">03</div>
+      <div class="expertise-name">Data-Driven Analytics</div>
+      <div class="expertise-desc">KPI dashboard design, retail and digital metric integration, CRM campaign optimization, and performance analytics presented to C-suite stakeholders.</div>
+    </div>
+    <div class="expertise-cell reveal reveal-delay-3">
+      <div class="expertise-num">04</div>
+      <div class="expertise-name">Creator & Influencer Strategy</div>
+      <div class="expertise-desc">Managed 200+ creators across YouTube, Instagram & TikTok. Campaign architecture, talent alignment, content strategy, and ROI measurement.</div>
+    </div>
+    <div class="expertise-cell reveal">
+      <div class="expertise-num">05</div>
+      <div class="expertise-name">Brand Activations & Experiential</div>
+      <div class="expertise-desc">In-store takeovers, watch parties, product launches, and multi-channel campaigns that bridge digital storytelling with physical retail environments.</div>
+    </div>
+    <div class="expertise-cell reveal reveal-delay-1">
+      <div class="expertise-num">06</div>
+      <div class="expertise-name">LATAM Market Expansion</div>
+      <div class="expertise-desc">Cross-border operational frameworks, dealer network development, and market entry strategy for Mexico, Puerto Rico, and broader Latin America.</div>
+    </div>
+    <div class="expertise-cell reveal reveal-delay-2">
+      <div class="expertise-num">07</div>
+      <div class="expertise-name">Partner & Retail Marketing</div>
+      <div class="expertise-desc">Managing $50M–$100M annual partner budgets across 8+ major retail clients. Co-branded campaigns, joint business planning, and 95% retention delivery.</div>
+    </div>
+    <div class="expertise-cell reveal reveal-delay-3">
+      <div class="expertise-num">08</div>
+      <div class="expertise-name">Digital & Performance Marketing</div>
+      <div class="expertise-desc">SEO, SEM, social media strategy, LinkedIn B2B campaigns, and integrated digital-retail ecosystems — optimizing spend and improving ROI by 25%+.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Experience -->
+<section id="experience">
+  <div class="section-label reveal">Career</div>
+  <h2 class="section-title reveal reveal-delay-1">EXPERIENCE</h2>
+
+  <div class="exp-layout">
+    <div class="exp-sidebar reveal">
+      <span class="exp-nav-item active">Blair Image Elements</span>
+      <span class="exp-nav-item">Lenovo — Specialist</span>
+      <span class="exp-nav-item">Lenovo — Jr. Specialist</span>
+      <span class="exp-nav-item">AGYL</span>
+    </div>
+
+    <div class="exp-entries">
+      <div class="exp-entry reveal">
+        <div class="exp-company">Blair Image Elements</div>
+        <div class="exp-meta">
+          <div class="exp-role">Project Manager, Automotive</div>
+          <div class="exp-period">2025</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Secured $1M+ in new B2B contracts within 90 days launching BMW's LATAM and Puerto Rico signage markets</li>
+          <li>Built end-to-end operational framework from dealer outreach to engineering approval and global compliance</li>
+          <li>Accelerated channel performance by 35% by streamlining quotation, approval, and production workflows</li>
+        </ul>
+      </div>
+
+      <div class="exp-entry reveal reveal-delay-1">
+        <div class="exp-company">Lenovo</div>
+        <div class="exp-meta">
+          <div class="exp-role">Marketing Specialist, Partner</div>
+          <div class="exp-period">2022 – 2024</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Developed GTM strategies for Lenovo's 8 largest retail partners, driving a record 30% increase in annual sales</li>
+          <li>Led Formula 1 sponsorship: team co-branding, race activations, premium SKU tie-ins → +150% brand visibility</li>
+          <li>Directed NFL Mexico City Game and 2-year LaLiga sponsorship with 5,000+ El Clásico watch party attendance</li>
+          <li>Activated 200+ creators on YouTube, Instagram, TikTok reaching 50M+ consumers</li>
+          <li>Built $50M+ Joint Business Plan presented to and approved by LATAM CEO</li>
+          <li>Led first $4.5M Takeover campaign: 10-person team, 2× revenue, +300% premium in-store sales</li>
+        </ul>
+      </div>
+
+      <div class="exp-entry reveal reveal-delay-2">
+        <div class="exp-company">Lenovo</div>
+        <div class="exp-meta">
+          <div class="exp-role">Jr. Marketing Specialist</div>
+          <div class="exp-period">2020 – 2022</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Managed 8+ major retail clients with $100M+ annual budget, delivering 1B+ yearly impressions</li>
+          <li>Drove 80% sales growth and 95% client retention through data-driven, customer-focused campaigns</li>
+          <li>Grew Walmart carrier's mobile subscriber base from 1,000 to 10,000 via 360° Motorola co-branded campaign</li>
+          <li>Boosted co-branded initiative ROI by 30% through in-depth performance analysis and optimization</li>
+        </ul>
+      </div>
+
+      <div class="exp-entry reveal reveal-delay-3">
+        <div class="exp-company">AGYL</div>
+        <div class="exp-meta">
+          <div class="exp-role">Jr. Digital Analyst</div>
+          <div class="exp-period">2019 – 2020</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Designed and executed digital marketing strategies (SEO, SEM, social) for a B2B consulting firm</li>
+          <li>Drove +20% increase in unique visitors and +16% rise in page views</li>
+          <li>Led LinkedIn campaigns targeting HR executives and C-suite, generating two Fortune 500 clients</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="contact-layout">
+    <div>
+      <div class="section-label reveal">Get in Touch</div>
+      <h2 class="contact-big reveal reveal-delay-1">LET'S<br>BUILD<br><span class="accent">SOMETHING</span><br>BIG.</h2>
+    </div>
+
+    <div class="contact-right reveal reveal-delay-2">
+      <p class="about-text" style="font-size:1rem; max-width:380px; margin-bottom:8px;">
+        Open to marketing leadership roles, brand strategy, and sports marketing opportunities. Based in Ithaca, NY — available nationwide.
+      </p>
+
+      <div class="contact-info">
+        <div class="contact-row">
+          <span class="contact-type">Email</span>
+          <a href="mailto:ma2424@cornell.edu" class="contact-value">ma2424@cornell.edu</a>
+        </div>
+        <div class="contact-row">
+          <span class="contact-type">Phone</span>
+          <a href="tel:6076974812" class="contact-value">(607) 697-4812</a>
+        </div>
+        <div class="contact-row">
+          <span class="contact-type">Location</span>
+          <span class="contact-value">Ithaca, NY</span>
+        </div>
+      </div>
+
+      <div class="edu-block">
+        <div class="section-label" style="margin-bottom:16px;">Education</div>
+        <div class="edu-item">
+          <div class="edu-school">Cornell University — Johnson</div>
+          <div class="edu-degree">Master of Business Administration · Marketing Analytics & Digital Transformation</div>
+          <div class="edu-year">2026</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-school">ITESM</div>
+          <div class="edu-degree">B.A. Marketing & Communications · L'Oréal Brandstorm Finalist</div>
+          <div class="edu-year">2019</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-name">© 2025 Montserrat Alonso de León</div>
+  <div class="footer-links">
+    <a href="mailto:ma2424@cornell.edu">Email</a>
+    <a href="tel:6076974812">Phone</a>
+    <a href="#hero">Top ↑</a>
+  </div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const follower = document.getElementById('cursor-follower');
+  let mx = 0, my = 0, fx = 0, fy = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animFollower() {
+    fx += (mx - fx) * 0.12;
+    fy += (my - fy) * 0.12;
+    follower.style.left = fx + 'px';
+    follower.style.top = fy + 'px';
+    requestAnimationFrame(animFollower);
+  }
+  animFollower();
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  reveals.forEach(r => io.observe(r));
+</script>
+</body>
+</html>
